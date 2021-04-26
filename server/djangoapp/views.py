@@ -102,7 +102,9 @@ def get_dealerships(request):
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        context = dict()
+        context['dealerships'] = dealerships
+        return render(request, 'djangoapp/index.html', context)
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
@@ -113,7 +115,9 @@ def get_dealer_details(request, dealer_id):
         # Concat all dealer's short name
         review_comments = ' '.join([review.review for review in reviews])
         # Return a list of dealer short name
-        return HttpResponse(review_comments)
+        context = dict()
+        context['reviews'] = reviews
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):

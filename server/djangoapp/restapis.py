@@ -139,9 +139,6 @@ def analyze_review_sentiments(text):
             features=Features(sentiment=SentimentOptions())).get_result()
 
         print(json.dumps(response, indent=2))
-        return response['sentiment']['docuemnt']['label']
+        return response['sentiment']['document']['label']
     except:
         return 'neutral'
-
-
-
