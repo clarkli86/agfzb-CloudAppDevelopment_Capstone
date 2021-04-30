@@ -117,6 +117,7 @@ def get_dealer_details(request, dealer_id):
         review_comments = ' '.join([review.review for review in reviews])
         # Return a list of dealer short name
         context = dict()
+        context['dealer_id'] = dealer_id
         context['reviews'] = reviews
         return render(request, 'djangoapp/dealer_details.html', context)
 
@@ -127,12 +128,13 @@ def add_review(request, dealer_id):
         # review = { "id": 1114, "name": "Upkar Lidder", "dealership": 15, "review": "Great service!", 
         # "purchase": False, "another": "field", "purchase_date": "02/16/2021", 
         # "car_make": "Audi", "car_model": "Car", "car_year": 2021 }
-        review = dict()        
+        review = dict()
+        review['id'] = int(datetime.strftime(datetime.utcnow(), "%Y%m%d%H%M%S"))
         review['name'] = request.user.first_name + ' ' + request.user.last_name
         review['dealership'] = dealer_id
         review["time"] = datetime.utcnow().isoformat()
         review["review"] = request.POST['content']
-        review['purchase'] = request.POST['purchasecheck']
+        review['purchase'] = 'purchasecheck' in request.POST['purchasecheck'] and request.POST['purchasecheck'] == 'on'
         review['purchase_date'] = request.POST['purchasedate']
 
         car = CarModel.objects.get(id=request.POST['car'])
