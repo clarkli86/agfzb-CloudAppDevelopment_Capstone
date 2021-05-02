@@ -8,9 +8,9 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 
 # Create a `get_request` to make HTTP GET requests
-def get_request(url, api_key=None, **kwargs):
-    print(kwargs)
+def get_request(url, api_key=None, **kwargs):    
     print("GET from {} ".format(url))
+    print(kwargs)
     try:
         if api_key:
             # Call get method of requests library with URL and parameters
@@ -76,7 +76,7 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealer_reviews_from_cf(url, **kwargs):
     results = []
     # Call get_request with a URL parameter
-    json_result = get_request(url)
+    json_result = get_request(url, **kwargs)
     if json_result:
         # Get the row list in JSON as dealers
         reviews = json_result["reviews"]

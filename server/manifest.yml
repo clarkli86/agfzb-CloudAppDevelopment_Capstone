@@ -2,7 +2,7 @@ applications:
   - name: dealerships
     routes:
       - route: 5dde.mybluemix.net
-    memory: 64M
+    memory: 128M
     buildpack: python_buildpack
   - name: dealerships-nginx
     routes:
